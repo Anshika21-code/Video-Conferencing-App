@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -5,6 +6,12 @@ import React from "react";
 import { Github } from "lucide-react";
 
 const page = () => {
+  //  const [isLoading,setIsLoading] = useSate(false);
+  //  const url = process.env.NEXTAUTH_URL;
+
+  //  const handleLogin = async () => {
+    
+  //  }
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-blue-100 to-purple-200 dark:from-gray-900 dark:to-gray-800">
       
