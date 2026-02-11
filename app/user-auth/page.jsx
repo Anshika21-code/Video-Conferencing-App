@@ -4,17 +4,31 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { Github } from "lucide-react";
+import { toast } from "react-toastify";
+import Loader from "@/app/components/Loader";
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 const page = () => {
-  //  const [isLoading,setIsLoading] = useSate(false);
-  //  const url = process.env.NEXTAUTH_URL;
+   const [isLoading,setIsLoading] = useState(false);
+   const url = process.env.NEXTAUTH_URL;
 
-  //  const handleLogin = async () => {
-    
-  //  }
+   const handleLogin = async (provider) => {
+    setIsLoading(true);
+      try {
+        await signIn(provider, { callbackUrl: url });
+      toast.success(`Login successful with ${provider}! Redirecting...`);
+      }
+        catch (error) {
+        toast.error(`Login failed, ${provider} Please try again.`);
+        }
+        finally {
+          setIsLoading(false);
+        }
+   }
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-blue-100 to-purple-200 dark:from-gray-900 dark:to-gray-800">
-      
+      {isLoading && <Loader />}
       {/* LEFT IMAGE */}
       <div className="hidden w-1/2 lg:block ">
         <Image
@@ -41,6 +55,7 @@ const page = () => {
             <Button
               className="w-full dark:hover:bg-white dark:hover:text-black"
               variant="outline"
+              onClick={() => handleLogin('google') }
             >
               <svg
                 className="mr-2 h-5 w-5"
@@ -70,6 +85,7 @@ const page = () => {
             <Button
               className="w-full bg-black text-white dark:bg-white dark:text-black dark:hover:bg-gray-200"
               variant="ghost"
+              onClick={() => handleLogin('github') }
             >
               <Github className="mr-2 h-5 w-5" />
               Login with Github
