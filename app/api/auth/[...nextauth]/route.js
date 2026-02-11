@@ -20,9 +20,9 @@ export const authOptions = {
   // callbacks rediredtion - if a user selcts github or google he will be redirected then it is c/d callbacks. 
   callbacks:{
     async jwt({token, user, account}){
-        console.log('this is token', token)
-        console.log('user', user)
-        console.log('account', account)
+        // console.log('this is token', token)
+        // console.log('user', user)
+        // console.log('account', account)
         
         if(user){
             token.id = user.id;
