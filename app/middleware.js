@@ -2,8 +2,8 @@ import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
 
-export default function middleware(req) {
-    const token = getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+export default async function middleware(req) {
+    const token =  await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     
     // if user try to go /user-auth after login
     if(req.nextUrl.pathname === '/user-auth' && token){

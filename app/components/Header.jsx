@@ -7,8 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Sun, Moon, LogOut, Plus, X } from 'lucide-react';
-import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu";
+import {DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu";
 import { CircleHelp } from "lucide-react";
 import { AlertTriangle } from "lucide-react";
 import { Settings } from "lucide-react";
@@ -45,13 +44,11 @@ const Header = () => {
 
     const userPlaceHolder = session?.user?.name?.split(" ").map((name) => name[0]).join("")
 
-    const handleLogout = async () => {
+    const handlelogout = async () => {
         await signOut({ callbackUrl: "/user-auth" });
     }
 
-    const handlelogout = async() =>{
-        await signOut({callbackUrl:'/user-auth'})
-    }
+    
 
 
   return (
@@ -109,7 +106,7 @@ const Header = () => {
             <Button variant="ghost" size="icon"><Grip className="w-10 h-10" /></Button>
         </div> */}
 
-        < DropdownMenu open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
+        < DropdownMenu open={open} onOpenChange={setOpen}>
                 <DropdownMenuTrigger asChild>
                     <Avatar className="cursor-pointer">
                         {session?.user?.image ? (
@@ -122,7 +119,7 @@ const Header = () => {
                     </Avatar>
                     
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className='w-80 p-4'>
+                <DropdownMenuContent align="end" className='w-80 p-4 z-50 align="end" sideOffset={8}'>
                     <div className='flex justify-between items-center mb-2'>
                         <span className='text-sm font-bold text-gray-800 dark:text-white'>
                             {session?.user?.email}
@@ -142,7 +139,7 @@ const Header = () => {
                         )}
                     </Avatar>
                     <h1 className='text-xl font-semibold mt-2'>
-                        Hi, {session?.user?.name}
+                        Hi, {session?.user?.name}!
                     </h1>
                     </div>
                     <div className='flex mb-4'>
