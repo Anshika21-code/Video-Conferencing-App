@@ -19,6 +19,7 @@ const MeetingAction = () => {
     const [baseUrl, setBaseUrl] = useState("")
     const router = useRouter();
     const [generatedMeetingUrl, setGeneratedMeetingUrl] = useState("");
+    const [meetingLink, setMeetingLink] = useState("");
 
 
     useEffect(() => {
@@ -33,6 +34,18 @@ const MeetingAction = () => {
         setGeneratedMeetingUrl(url);
         setIsDialogOpen(true);
         toast.success("Meeting link generated! You can share it with others.") 
+    }
+
+    const handleJoinMeeting = () => {
+        if(!meetingLink){
+            setIsLoading(true);
+            const formattedLink = meetingLink.includes("http")?meetingLink: `${baseUrl}/video-meeting/${meetingLink}`
+            router.push(formattedLink);
+            toast.info("Joining meeting...")
+        }else{
+            toast.error("Please enter a valid meeting link.")
+            
+        }
     }
 
     const copyToClipboard = () => {
@@ -74,10 +87,13 @@ const MeetingAction = () => {
             <Input 
             className="pl-8 rounded-r-none pr-10"
             placeholder="Enter meeting link"
+            value={meetingLink}
+            onChange={(e) => setMeetingLink(e.target.value)}
             />
             <Button variant="secondary"
-            className='rounded-l-none'>
-                
+            className='rounded-l-none'
+            onClick={handleJoinMeeting}>
+                Join
             </Button>
         </div>
      
