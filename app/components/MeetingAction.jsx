@@ -1,143 +1,3 @@
-// "use client"
-// import React, { useState, useEffect  } from 'react'
-// import { useSession } from 'next-auth/react';
-// import {
-//   DropdownMenu,
-//   DropdownMenuTrigger,
-//   DropdownMenuContent,
-// } from "@/components/ui/dropdown-menu";
-// import { useRouter } from 'next/navigation'
-// import { Button } from '@/components/ui/button';
-// import {LinkIcon, Video} from "lucide-react";
-// import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-// import { Link2, Copy } from "lucide-react";
-// import { Input } from '@/components/ui/input';
-// import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-// import { v4 as uuidv4 } from 'uuid';
-
-
-
-// const MeetingAction = () => {
-//     const {data:session} = useSession();
-//     const [isLoading, setIsLoading] = useState();
-//     const [isDialogOpen, setIsDialogOpen] = useState(false)
-//     const [baseUrl, setBaseUrl] = useState("")
-//     const router = useRouter()
-//     const [generatedMeetingUrl, setGeneratedMeetingUrl] = useState("");
-//     const [meetingLink, setMeetingLink] = useState("");
-
-
-//     useEffect(() => {
-//         setBaseUrl(window.location.origin);
-
-//     },[])
-
-//     const handleCreateMeetingForLater = () => {
-//         const roomId= uuidv4();
-//         console.log('this is room id', roomId);
-//         const url = `${baseUrl}/video-meeting/${roomId}`;
-//         setGeneratedMeetingUrl(url);
-//         setIsDialogOpen(true);
-//         toast.success("Meeting link generated! You can share it with others.") 
-//     }
-
-//     const handleJoinMeeting = () => {
-//         if(!meetingLink){
-//             setIsLoading(true);
-//             const formattedLink = meetingLink.includes("http")?meetingLink: `${baseUrl}/video-meeting/${meetingLink}`
-//             router.push(formattedLink);
-//             toast.info("Joining meeting...")
-//         }else{
-//             toast.error("Please enter a valid meeting link.")
-            
-//         }
-//     }
-
-//     const copyToClipboard = () => {
-//         navigator.clipboard.writeText(generatedMeetingUrl);
-//         toast.success("Meeting link copied to clipboard!");
-//     }
-
-
-//   return (
-//     <>
-//     <div className=' flex flex-col sm:flex-row space-y-4 sm:space-y-0  sm:space-x-4'>
-//         <DropdownMenu>
-//             <DropdownMenuTrigger asChild>
-//                 <Button className ="w-full sm:w-auto color-blue text-white" size="lg" >
-//                     <Video className="w-5 h-5 mr-2" />
-//                       New Meeting
-
-//                 </Button>
-//             </DropdownMenuTrigger>
-//             <DropdownMenuContent>
-//                 <DropdownMenuItem onClick={handleCreateMeetingForLater} >
-//                     <Link2 className='w-4 h-4 mr-2'/>
-//                     Create a meeting for later
-//                 </DropdownMenuItem>
-//                 <DropdownMenuItem >
-//                     <Link2 className='w-4 h-4 mr-2'/>
-//                     Start a instant meeting
-//                 </DropdownMenuItem>
-//                 <DropdownMenuItem >
-//                     <Link2 className='w-4 h-4 mr-2'/>
-//                     Schedule in Google Calendar
-//                 </DropdownMenuItem>
-//             </DropdownMenuContent>
-//         </DropdownMenu>
-//         <div className="flex w-full relative">
-//             <span className='absolute left-2 top-1/2 transform-translate-y-1/2'>
-//                 <LinkIcon className='w-4 h-4 text-gray'/>
-//             </span>
-//             <Input 
-//             className="pl-8 rounded-r-none pr-10"
-//             placeholder="Enter meeting link"
-//             value={meetingLink}
-//             onChange={(e) => setMeetingLink(e.target.value)}
-//             />
-//             <Button variant="secondary"
-//             className='rounded-l-none'
-//             onClick={handleJoinMeeting}>
-//                 Join
-//             </Button>
-//         </div>
-     
-//     </div>
-//     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-//         <DialogContent className='max-w-sm rounded-lg p-6'>
-//             <DialogHeader>
-//                 <DialogTitle className='text-3xl font-normal'>
-//                     Here's your joining information
-//                 </DialogTitle>
-//             </DialogHeader>
-//             <div className='flex flex-col space-y-4'>
-//                 <p className='text-sm text-gray-600 dark:text-gray-300'>
-//                     Send this to people that you want to meet with. Make sure that  you save it so that you can use it later, too.
-//                 </p>
-//                 <div className=' flex items-center justify-between bg-gray-100 dark:bg-gray-800 p-4 rounded-lg '>
-//                     <span className='text-gray-700 dark:text-gray-200 break-all'>
-//                         {generatedMeetingUrl.slice(0,30)}...
-//                     </span>
-//                     <Button className='hover:bg-gray-200' onClick={copyToClipboard}>
-//                         <Copy className="w-5 h-5 text-black"/>
-
-                        
-//                     </Button>
-//                 </div>
-
-//             </div>
-
-//         </DialogContent>
-
-//     </Dialog>
-//     </>
-//   )
-  
-// }
-
-// export default MeetingAction
- 
-
 "use client"
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
@@ -218,25 +78,33 @@ const MeetingAction = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
          </DropdownMenu>
-         <div className='flex w-full sm:w-auto relative'>
-          <span className='absolute left-2 top-1/2 transform -translate-y-1/2'>
-            <LinkIcon className='w-4 h-4 text-gray-400'/>
-          </span>
-           <Input
-            placeholder='Enter a code or link'
-            className="pl-8 rounded-r-none pr-10"
-            value={meetingLink}
-            onChange={(e) => setMeetingLink(e.target.value)}
-          />
-          <Button
-           variant="secondary"
-           className="rounded-l-none"
-           onClick={handleJoinMeeting}
-          >
-            Join
-          </Button>
+         <div className="flex w-full sm:w-auto items-center">
+  {/* Outer rounded container */}
+  <div className="relative flex items-center w-full sm:w-[420px] h-14 rounded-full border border-gray-300 bg-white overflow-hidden">
 
-         </div>
+    {/* Icon */}
+    <span className="absolute left-5 top-1/2 -translate-y-1/2">
+      <LinkIcon className="w-5 h-5 text-gray-500" />
+    </span>
+
+    {/* Input */}
+    <Input
+      placeholder="Enter a code or link"
+      value={meetingLink}
+      onChange={(e) => setMeetingLink(e.target.value)}
+      className="h-full w-full border-0 bg-transparent pl-14 pr-24 text-base focus-visible:ring-0 focus-visible:ring-offset-0"
+    />
+
+    {/* Join button inside */}
+    <button
+      onClick={handleJoinMeeting}
+      className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium hover:text-gray-900"
+    >
+      Join
+    </button>
+  </div>
+</div>
+
     </div>
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogContent className="max-w-sm rounded-lg p-6">
