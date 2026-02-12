@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { Copy, Link2, LinkIcon, Plus, Video } from 'lucide-react'
+import { Copy, Link2, LinkIcon, Plus, Video, Calendar } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -52,6 +52,29 @@ const MeetingAction = () => {
     toast.info('joining meeting...')
   }
 
+  const handleScheduleInGoogleCalendar = () => {
+  const roomId = uuidv4();
+  const meetingUrl = `${baseUrl}/video-meeting/${roomId}`;
+
+  const title = encodeURIComponent("Google Meet Clone Meeting");
+  const details = encodeURIComponent(`Join meeting here: ${meetingUrl}`);
+
+  // (Optional) start/end time (for now: +5 mins to +35 mins)
+  const start = new Date(Date.now() + 5 * 60 * 1000);
+  const end = new Date(Date.now() + 35 * 60 * 1000);
+
+  const formatDate = (date) =>
+    date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+
+  const startTime = formatDate(start);
+  const endTime = formatDate(end);
+
+  const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${startTime}/${endTime}`;
+
+  window.open(googleCalendarUrl, "_blank");
+};
+
+
   const copyToClipboard =() =>{
     navigator.clipboard.writeText(generatedMeetingUrl);
     toast.info('meeting link copied to clipboard')
@@ -70,11 +93,15 @@ const MeetingAction = () => {
           <DropdownMenuContent>
             <DropdownMenuItem onClick={handleCreateMeetingForLater}>
               <Link2 className='w-4 h-4 mr-2'/>
-              create a meeting for later
+              Create a meeting for later
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleStartMeeting} >
               <Plus className='w-4 h-4 mr-2'/>
-              start an instant meeting 
+              Start an instant meeting 
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleScheduleInGoogleCalendar} >
+              <Calendar className='w-4 h-4 mr-2'/>
+              Scheduele in Google Calendar
             </DropdownMenuItem>
           </DropdownMenuContent>
          </DropdownMenu>
