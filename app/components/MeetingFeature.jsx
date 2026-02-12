@@ -55,23 +55,39 @@ const MeetingFeature = () => {
           height={300}
           className="rounded-full w-40 h-40 md:w-64 md:h-64"
         />
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-1/2 -left-10 -translate-y-1/2 -translate-x-full border border-gray-300 rounded-full bg-white hover:bg-gray-400"
-          onClick={prevSlide}
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </Button>
+       <Button
+  variant="ghost"
+  size="icon"
+  className="
+    absolute top-1/2 -left-10 -translate-y-1/2 -translate-x-full 
+    rounded-full border
+    bg-white text-gray-800 border-gray-300
+    hover:bg-gray-100
+    dark:bg-gray-800 dark:text-white dark:border-gray-600
+    dark:hover:bg-gray-700
+  "
+  onClick={prevSlide}
+>
+  <ChevronLeft className="h-6 w-6" />
+</Button>
+
 
         <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-1/2 -right-10 -translate-y-1/2 translate-x-full border border-gray-300 rounded-full bg-white hover:bg-gray-400"
-          onClick={nextSlide}
-        >
-          <ChevronRight className="h-6 w-6" />
-        </Button>
+  variant="ghost"
+  size="icon"
+  className="
+    absolute top-1/2 -right-10 -translate-y-1/2 translate-x-full 
+    rounded-full border
+    bg-white text-gray-800 border-gray-300
+    hover:bg-gray-100
+    dark:bg-gray-800 dark:text-white dark:border-gray-600
+    dark:hover:bg-gray-700
+  "
+  onClick={nextSlide}
+>
+  <ChevronRight className="h-6 w-6" />
+</Button>
+
       </div>
       <h2 className="text-2xl font-semibold mt-10 mb-2 text-gray-900 dark:text-white">
         {slides[currentSlide].title}
