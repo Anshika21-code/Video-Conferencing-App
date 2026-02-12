@@ -52,7 +52,8 @@ const Header = () => {
 
 
   return (
-    <div className='flex items-center justify-between p-4 bg-white dark:bg-gray-900  dark:border-gray-700'>
+    <div className="relative z-50 flex items-center justify-between p-4 bg-white dark:bg-gray-900 dark:border-gray-700">
+
       <div className='flex items-center space-x-4'>
         <Link href='/' className='flex items-center space-x-2'>
           <Image
@@ -106,62 +107,93 @@ const Header = () => {
             <Button variant="ghost" size="icon"><Grip className="w-10 h-10" /></Button>
         </div> */}
 
-        < DropdownMenu open={open} onOpenChange={setOpen}>
-                <DropdownMenuTrigger asChild>
-                    <Avatar className="cursor-pointer">
-                        {session?.user?.image ? (
-                            <AvatarImage src={session?.user?.image} alt={session?.user?.name}/>
-                        ) : (
-                            <AvatarFallback className="text-lg dark:bg-gray-300">
-                                {userPlaceHolder}
-                            </AvatarFallback>
-                        )}
-                    </Avatar>
-                    
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className='w-80 p-4 z-50 align="end" sideOffset={8}'>
-                    <div className='flex justify-between items-center mb-2'>
-                        <span className='text-sm font-bold text-gray-800 dark:text-white'>
-                            {session?.user?.email}
-                        </span>
-                        <Button className='rounded-full p-4' variant="ghost" size="icon" onClick={() => setOpen(false)}>
-                            <X className="w-6 h-6" />
-                        </Button>
-                    </div>
-                    <div className='flex flex-col items-center mb-4'>
-                        <Avatar className="cursor-pointer">
-                        {session?.user?.image ? (
-                            <AvatarImage className="w-20 h-20 mb-2" src={session?.user?.image} alt={session?.user?.name}/>
-                        ) : (
-                            <AvatarFallback className="text-2xl dark:bg-gray-300">
-                                {userPlaceHolder}
-                            </AvatarFallback>
-                        )}
-                    </Avatar>
-                    <h1 className='text-xl font-semibold mt-2'>
-                        Hi, {session?.user?.name}!
-                    </h1>
-                    </div>
-                    <div className='flex mb-4'>
-                          <Button className="w-1/2 h-14 rounded-l-full" variant="outline">
-                            <Plus className='h-4 w-4 mr-2'/>
-                            Add Account
-                          </Button>
-                          <Button className="w-1/2 h-14 rounded-r-full" variant="outline" onClick={handlelogout}>
-                            <LogOut className='h-4 w-4 mr-2'/>
-                             SignOut
-                          </Button>
-                        </div>
-                        <div className='text-center text-sm text-gray-500 '>
-                        <Link href='#' className='hover:bg-gray-300 p-2 rounded-lg'>
-                        Privacy Policy
-                        </Link>
-                        {" . "}
-                        <Link href='#' className='hover:bg-gray-300 p-2 rounded-lg'>
-                         Terms of Service
-                        </Link>
-                        </div>
-                </DropdownMenuContent>
+        <DropdownMenu open={open} onOpenChange={setOpen}>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="p-0 rounded-full overflow-hidden"
+            >
+              <Avatar className="cursor-pointer">
+                {session?.user?.image ? (
+                  <AvatarImage
+                    src={session?.user?.image}
+                    alt={session?.user?.name}
+                  />
+                ) : (
+                  <AvatarFallback className="text-lg dark:bg-gray-300">
+                    {userPlaceHolder}
+                  </AvatarFallback>
+                )}
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent
+            align="end"
+            sideOffset={8}
+            className="w-80 p-4 z-[9999]"
+          >
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm font-bold text-gray-800 dark:text-white">
+                {session?.user?.email}
+              </span>
+
+              <Button
+                className="rounded-full"
+                variant="ghost"
+                size="icon"
+                onClick={() => setOpen(false)}
+              >
+                <X className="w-6 h-6" />
+              </Button>
+            </div>
+
+            <div className="flex flex-col items-center mb-4">
+              <Avatar className="w-20 h-20">
+                {session?.user?.image ? (
+                  <AvatarImage
+                    src={session?.user?.image}
+                    alt={session?.user?.name}
+                  />
+                ) : (
+                  <AvatarFallback className="text-2xl dark:bg-gray-300">
+                    {userPlaceHolder}
+                  </AvatarFallback>
+                )}
+              </Avatar>
+
+              <h1 className="text-xl font-semibold mt-2">
+                Hi, {session?.user?.name}!
+              </h1>
+            </div>
+
+            <div className="flex mb-4">
+              <Button className="w-1/2 h-14 rounded-l-full" variant="outline">
+                <Plus className="h-4 w-4 mr-2" />
+                Add Account
+              </Button>
+
+              <Button
+                className="w-1/2 h-14 rounded-r-full"
+                variant="outline"
+                onClick={handlelogout}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                SignOut
+              </Button>
+            </div>
+
+            <div className="text-center text-sm text-gray-500">
+              <Link href="#" className="hover:bg-gray-300 p-2 rounded-lg">
+                Privacy Policy
+              </Link>
+              {" . "}
+              <Link href="#" className="hover:bg-gray-300 p-2 rounded-lg">
+                Terms of Service
+              </Link>
+            </div>
+          </DropdownMenuContent>
         </DropdownMenu>
 
       </div>
