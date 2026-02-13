@@ -39,5 +39,5 @@ This project allows users to:
 
 ---
 
-## 📂 Project Structure
+
 
