@@ -25,11 +25,19 @@ const VideoMeeting = () => {
   const [countdown, setCountdown] = useState(60);
 
   // Join meeting when authenticated
-  useEffect(() => {
-    if (status === "authenticated" && session?.user?.name && containerRef.current) {
-      joinMeeting(containerRef.current);
-    }
-  }, [session, status]);
+  const hasJoinedRef = useRef(false);
+
+useEffect(() => {
+  if (
+    status === "authenticated" &&
+    session?.user?.name &&
+    containerRef.current &&
+    !hasJoinedRef.current
+  ) {
+    hasJoinedRef.current = true;
+    joinMeeting(containerRef.current);
+  }
+}, [status, session]);
 
   // Cleanup Zego instance
 
@@ -83,44 +91,95 @@ const VideoMeeting = () => {
   };
 
   // When meeting is left (Google Meet like screen)
+  // const handleMeetingLeft = () => {
+  //   if (zp) {
+  //     zp.destroy();
+  //   }
+
+  //   setZp(null);
+  //   setIsInMeeting(false);
+
+  //   // show left meeting UI
+  //   setShowLeftScreen(true);
+
+  //   toast.info("You left the meeting");
+  // };
+
+
   const handleMeetingLeft = () => {
-    if (zp) {
-      zp.destroy();
+  // Step 1: show left UI FIRST
+  setShowLeftScreen(true);
+  setIsInMeeting(false);
+
+  toast.info("You left the meeting");
+
+  //  destroy zego after UI removed
+  setTimeout(() => {
+    try {
+      zp?.destroy();
+    } catch (err) {
+      console.log("Zego destroy error:", err);
     }
 
     setZp(null);
-    setIsInMeeting(false);
 
-    // show left meeting UI
-    setShowLeftScreen(true);
+    // camera off
+    const videos = document.querySelectorAll("video");
+    videos.forEach((video) => {
+      if (video.srcObject) {
+        video.srcObject.getTracks().forEach((track) => track.stop());
+      }
+      video.srcObject = null;
+    });
+  }, 200);
+};
 
-    toast.info("You left the meeting");
-  };
 
   // Countdown effect
+  // useEffect(() => {
+  //   if (!showLeftScreen) return;
+
+  //   setCountdown(60);
+
+  //   const timer = setInterval(() => {
+  //     setCountdown((prev) => {
+  //       if (prev <= 1) {
+  //         clearInterval(timer);
+  //         window.location.href = "/"; // Redirect to home after countdown
+  //         return 0;
+  //       }
+  //       return prev - 1;
+  //     });
+  //   }, 1000);
+
+  //   return () => clearInterval(timer);
+  // }, [showLeftScreen, router]);
+
   useEffect(() => {
-    if (!showLeftScreen) return;
+  if (!showLeftScreen) return;
 
-    setCountdown(60);
+  setCountdown(60);
 
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          router.push("/");
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+  const timer = setInterval(() => {
+    setCountdown((prev) => {
+      if (prev <= 1) {
+        clearInterval(timer);
+        window.location.href = "/";
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
 
-    return () => clearInterval(timer);
-  }, [showLeftScreen, router]);
+  return () => clearInterval(timer);
+}, [showLeftScreen]);
+
 
   // Manual end meeting button (your button)
   const endMeeting = () => {
     handleMeetingLeft();
   };
+
 
   
   if (showLeftScreen) {
