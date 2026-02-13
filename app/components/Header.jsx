@@ -63,8 +63,11 @@ const Header = () => {
             height={34}
             className="object-contain"
           />
+          <h1 className="text-3xl font-semibold text-gray-600 dark:text-white">
+            Google 
+          </h1>
           <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">
-            Google Meet
+             Meet
           </h1>
         </Link>
         {/* <span className='hidden md:block text-xl font-semibold text-gray-800 dark:text-white'> 

@@ -163,19 +163,27 @@ const VideoMeeting = () => {
 
         {/* safe meeting card */}
         <div className="w-full max-w-xl border rounded-lg p-6 flex items-start gap-4 bg-white dark:bg-gray-800">
-          <div className="text-blue-600 text-3xl">🔒</div>
+          <Image
+              src="/images/shield.png"
+              alt="Shield"
+              width={40}
+              height={40}
+          />
 
-          <div>
-            <h2 className="font-semibold text-gray-900 dark:text-white">
-              Your meeting is safe
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
-              No one can join a meeting unless invited or admitted by the host
-            </p>
-            <p className="text-blue-600 text-sm mt-2 cursor-pointer hover:underline">
-              Learn more
-            </p>
-          </div>
+          <div className="flex flex-col gap-1">
+  <h2 className="text-base font-semibold text-gray-900 dark:text-white">
+    Your meeting is safe
+  </h2>
+
+  <p className="text-sm text-gray-600 dark:text-gray-300 leading-snug">
+    No one can join a meeting unless invited or admitted by the host
+  </p>
+
+  <button className="text-sm text-blue-600 hover:underline w-fit mt-1">
+    Learn more
+  </button>
+</div>
+
         </div>
       </div>
     );

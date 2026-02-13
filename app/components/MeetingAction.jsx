@@ -119,7 +119,7 @@ const MeetingAction = () => {
       placeholder="Enter a code or link"
       value={meetingLink}
       onChange={(e) => setMeetingLink(e.target.value)}
-      className="h-full w-full border-0 bg-transparent pl-14 pr-24 text-base focus-visible:ring-0 focus-visible:ring-offset-0"
+      className="h-full w-full border-2 bg-transparent pl-14 pr-24 text-base focus-visible:ring-0 focus-visible:ring-offset-0"
     />
 
     {/* Join button inside */}
